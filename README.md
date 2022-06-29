@@ -137,16 +137,17 @@ Basicamente o RedisJSON adiciona uma série de comandos que facilitam a manipula
           v
 
          root
-         
+       
           |
           v
      Type: object
+     
   foo           ans
    |             |
    v             v
 Type: string  Type: number
    "bar"        42
-   
+
    
 " - Fonte:  https://medium.com/@1fabiopereira/redisjson-manipulando-json-como-tipo-nativo-no-redis-3736e1fba832
 
