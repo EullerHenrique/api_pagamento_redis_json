@@ -6,13 +6,11 @@ import com.api_pagamento.redis_json.domain.enumeration.StatusEnum;
 import com.api_pagamento.redis_json.domain.exception.InsercaoNaoPermitidaException;
 import com.api_pagamento.redis_json.domain.exception.TransacaoInexistenteException;
 import com.api_pagamento.redis_json.domain.model.Transacao;
-import com.api_pagamento.redis_json.repository.DescricaoRepository;
-import com.api_pagamento.redis_json.repository.TransacaoCacheRepository;
-import com.api_pagamento.redis_json.repository.TransacaoRepository;
-import com.google.gson.Gson;
+import com.api_pagamento.redis_json.repository.database.DescricaoRepository;
+import com.api_pagamento.redis_json.repository.cache.TransacaoCacheRepository;
+import com.api_pagamento.redis_json.repository.database.TransacaoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.json.Path;
 
 import javax.transaction.Transactional;
 import java.util.Comparator;
@@ -75,7 +73,7 @@ public class TransacaoServiceImp implements TransacaoService {
     public List<TransacaoDTO> getAll() throws TransacaoInexistenteException {
 
         //Get of Cache
-        List<TransacaoDTO> transacoesDTO = transacaoCacheRepository.getAllKey().stream().sorted(Comparator.comparing(TransacaoDTO::getId)).collect(Collectors.toList());
+        List<TransacaoDTO> transacoesDTO = transacaoCacheRepository.getAllKey();
         if(transacoesDTO.size() != 0) {
             return transacoesDTO;
         }

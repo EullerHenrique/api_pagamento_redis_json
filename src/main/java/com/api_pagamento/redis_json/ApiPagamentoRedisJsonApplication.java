@@ -54,7 +54,7 @@ public class ApiPagamentoRedisJsonApplication {
         public Docket api() {
             return new Docket(DocumentationType.SWAGGER_2)
                     .select()
-                    .apis(RequestHandlerSelectors.basePackage("com.api.pagamento.controller"))
+                    .apis(RequestHandlerSelectors.basePackage("com.api_pagamento.redis_json.controller"))
                     .paths(PathSelectors.any())
                     .build()
                     .apiInfo(apiInfo());
