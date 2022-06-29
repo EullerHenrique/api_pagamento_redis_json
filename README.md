@@ -102,9 +102,77 @@ O Redis pode calcular e, quando necessário, acelerar a taxa dos eventos. Ao usa
             
 ## Conceito: Redis Json
 
+"
 
+Por padrão o formato JSON é armazenado no Redis como strings escapadas, essa característica pode não atrapalhar se você deseja somente adicionar e recuperar essas informações em sua totalidade, os problemas realmente começam quando precisamos fazer uma busca em JSONs aninhados ou atualizar campos dentro de um JSON já persistido no Redis. Os problemas ocorrem pois para fazer buscas mais complexas ou atualizar informações dentro de um JSON salvo como string, precisamos recuperá-las no Redis e fazer com que essas manipulações aconteçam no lado da aplicação.
 
+Aplicação   <-  Redis
 
+A aplicação deve recuperar a string escapada do Redis e transformá-la em formato JSON para entào a manipular
+
+Aplicação -> Redis
+
+As buscas e as mudanças ocorrem no lado da aplicação, e caso necessário a aplicação deve enviar o dado novamente para que o Redis possa persistir
+
+A abordagem acima apresenta dois grandes problemas que podem impactar sua aplicação.
+
+A primeira delas é que sua aplicação deve buscar os dados e reenviar ao Redis caso seja necessário, isso implica em aumentar o tráfego de dados na rede, o que por consequência acaba por aumentar a latência da rede como um todo, esse problema pode se agravar ainda mais caso o JSON recuperado seja grande, com muitos níveis ou se essa manipulação ocorrer com frequência.
+
+O outro problema é em relação à performance da sua aplicação, pois no esquema acima estamos delegando a ela a obrigação de executar ações que normalmente os bancos de dados deveriam executar, além claro, de aumentarmos a complexidade do código, visto que estamos adicionando mais responsabilidades a ele.
+
+RedisJSON
+
+RedisJSON é um módulo para o Redis que nos permite tratar dados em formato JSON como uma tipo nativo de estrutura de dados do Redis, muito similar a um banco não relacional baseado em documentos, porém com bem menos funcionalidades que o mesmo pode oferecer.
+
+O RedisJSON apresenta uma sintaxe simples de entender até mesmo por desenvolvedores menos experientes.
+
+Basicamente o RedisJSON adiciona uma série de comandos que facilitam a manipulação de dados em formato JSON dentro do Redis, todos os comando existentes podem ser encontrados na documentação oficial do módulo (https://redis.io/commands/?group=json). A ideia de funcionamento é simples, o JSON passado para o Redis é analisado pela json-sl, uma lib que executa análises léxicas no JSON em questão e contrói uma árvore a partir dele. Demonstrado pelo esquema a baixo:
+
+{ 
+  "foo": "bar",
+  "ans": 42
+}
+
+          |
+          v
+
+         root
+         
+          |
+          v
+     Type: object
+  foo           ans
+   |             |
+   v             v
+Type: string  Type: number
+   "bar"        42
+   
+   
+" - Fonte:  https://medium.com/@1fabiopereira/redisjson-manipulando-json-como-tipo-nativo-no-redis-3736e1fba832
+
+"
+RedisJSON é um módulo Redis que fornece suporte JSON no Redis. O RedisJSON permite que você armazene, atualize e recupere valores JSON no Redis da mesma forma que faria com qualquer outro tipo de dados do Redis. O RedisJSON também funciona perfeitamente com o RediSearch para permitir que você indexe e consulte seus documentos JSON.
+
+Recursos principais
+
+Suporte completo para o padrão JSON
+Uma sintaxe JSONPath para selecionar/atualizar elementos dentro de documentos
+Documentos armazenados como dados binários em uma estrutura de árvore, permitindo acesso rápido aos subelementos
+Operações atômicas tipadas para todos os tipos de valores JSON
+
+" - Fonte: https://redis.io/docs/stack/json/
+
+"
+
+"
+
+Limite de tamanho do documento
+Os documentos JSON são armazenados internamente em um formato otimizado para acesso e modificação rápidos. Esse formato geralmente resulta em consumir um pouco mais de memória do que a representação serializada equivalente do mesmo documento. O consumo de memória por um único documento JSON é limitado a 64 MB, que é o tamanho da estrutura de dados na memória, não a string JSON. A quantidade de memória consumida por um documento JSON pode ser inspecionada usandoJSON.DEBUG MEMORYcomando.
+
+Limite de profundidade de agrupamento
+Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JSON, esse objeto interno ou matriz é dito “aninhar” dentro do objeto ou matriz externa. O limite máximo de profundidade de aninhamento é 128. Qualquer tentativa de criar um documento que contenha uma profundidade de aninhamento maior que 128 será rejeitada com um erro.
+
+" - Fonte: https://docs.aws.amazon.com/pt_br/memorydb/latest/devguide/json-document-overview.html#json-nesting-depth-limit
 
 
 ## Tecnologias Utilizadas
