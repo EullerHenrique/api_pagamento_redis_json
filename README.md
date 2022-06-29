@@ -3,7 +3,7 @@
 ## Sumário 
 
 - [Conceito: Redis](#conceito-redis)
-- [Conceito: Redis Json](#conceito-redis_json)
+- [Conceito: Redis Json](#conceito-redis-json)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Configuração](#configuração)
 
