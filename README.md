@@ -16,9 +16,10 @@
 - Java
 - Spring Boot
 - Docker
-- atmoz/sftp
 - Lombok
-- Apache Camel
+- PostgreSQL
+- Redis
+- Redis Json
 
 ## Configuração
 
