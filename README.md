@@ -6,7 +6,7 @@
 - [Conceito: Redis Json](#conceito-redis-json)
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Configuração](#configuração)
-
+- [EndPoints](#endpoints)
 ## Conceito: Redis
 
 "
