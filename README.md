@@ -219,7 +219,7 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
   2. Digite docker exec -it redis-json bash para abrir o terminal do container redis-json
   3. Digite redis-cli --raw (--raw: exibe os dados codificados em UTF8)
   4. Digite keys * para exibir as keys salvas
-  5. Digite JSON.GET <nome-da-key> para exibir o valor de determinada key
+  5. Digite JSON.GET <-nome-da-key-> para exibir o valor de determinada key
 
 ## EndPoints
   
