@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +53,7 @@ public class TransacaoServiceImp implements TransacaoService {
     public TransacaoDTO getById(Long id) throws TransacaoInexistenteException {
 
         //Get of Cache
-        TransacaoDTO transacaoDTO = transacaoCacheRepository.getKey("transacao::"+id.toString());
+        TransacaoDTO transacaoDTO = transacaoCacheRepository.getJsonKey("transacao::"+id.toString());
         if(transacaoDTO != null) {
             return transacaoDTO;
         }
@@ -61,7 +62,7 @@ public class TransacaoServiceImp implements TransacaoService {
         transacaoDTO = (TransacaoDTO) transacaoRepository.findById(id).map(t -> Mapper.convert(t, TransacaoDTO.class)).orElse(null);
         if(transacaoDTO != null){
             //Save on Cache
-            transacaoCacheRepository.setKey("transacao::"+transacaoDTO.getId(), transacaoDTO);
+            transacaoCacheRepository.setJsonKey("transacao::"+transacaoDTO.getId(), transacaoDTO);
             return transacaoDTO;
         }else{
             throw new TransacaoInexistenteException();
@@ -73,9 +74,12 @@ public class TransacaoServiceImp implements TransacaoService {
     public List<TransacaoDTO> getAll() throws TransacaoInexistenteException {
 
         //Get of Cache
-        List<TransacaoDTO> transacoesDTO = transacaoCacheRepository.getAllKey();
-        if(transacoesDTO.size() != 0) {
-            return transacoesDTO;
+        List<TransacaoDTO> transacoesDTO = transacaoCacheRepository.getAllJsonKey();
+        Long sizeDB = transacaoCacheRepository.getKey("size::transacoes");
+        if(sizeDB != null) {
+            if(transacoesDTO.size() == sizeDB) {
+                return transacoesDTO;
+            }
         }
 
         //Get of Database
@@ -85,7 +89,7 @@ public class TransacaoServiceImp implements TransacaoService {
                 .map(t -> {
                     TransacaoDTO transacaoDTO = (TransacaoDTO) Mapper.convert(t, TransacaoDTO.class);
                     //Save on Cache
-                    transacaoCacheRepository.setKey("transacao::"+t.getId(), transacaoDTO);
+                    transacaoCacheRepository.setJsonKey("transacao::"+t.getId(), transacaoDTO);
                     return transacaoDTO;
                 })
                 .collect(Collectors.toList());
@@ -108,6 +112,8 @@ public class TransacaoServiceImp implements TransacaoService {
 
             Transacao transacaoSave = transacaoRepository.save(transacao);
 
+            transacaoCacheRepository.setKey("size::transacoes", transacaoSave.getId().toString());
+
             return (TransacaoDTO) Mapper.convert(transacaoSave, TransacaoDTO.class);
 
         }else{
@@ -119,7 +125,7 @@ public class TransacaoServiceImp implements TransacaoService {
     public TransacaoDTO estornar(Long id) throws TransacaoInexistenteException {
 
         //Get of cache
-        TransacaoDTO transacaoDTO = transacaoCacheRepository.getKey("transacao::"+id.toString());
+        TransacaoDTO transacaoDTO = transacaoCacheRepository.getJsonKey("transacao::"+id.toString());
         if(transacaoDTO != null) {
             if(transacaoDTO.getDescricao().getStatus() == StatusEnum.NEGADO){
                 return transacaoDTO;
@@ -133,7 +139,7 @@ public class TransacaoServiceImp implements TransacaoService {
         descricaoRepository.save(transacao.getDescricao());
 
         //Save on cache
-        transacaoDTO = transacaoCacheRepository.updateKey("transacao::"+id, "descricao.status", StatusEnum.NEGADO.toString());
+        transacaoDTO = transacaoCacheRepository.updateJsonKey("transacao::"+id, "descricao.status", StatusEnum.NEGADO.toString());
         if(transacaoDTO!=null){
             return transacaoDTO;
         }else{
@@ -141,8 +147,5 @@ public class TransacaoServiceImp implements TransacaoService {
         }
 
     }
-
-
-
 
 }
