@@ -110,8 +110,10 @@ public class TransacaoServiceImp implements TransacaoService {
             transacao.getDescricao().setCodigoAutorizacao("147258369");
             transacao.getDescricao().setStatus(StatusEnum.AUTORIZADO);
 
+            //Save on Database
             Transacao transacaoSave = transacaoRepository.save(transacao);
 
+            //Save on Cache
             transacaoCacheRepository.setKey("size::transacoes", transacaoSave.getId().toString());
 
             return (TransacaoDTO) Mapper.convert(transacaoSave, TransacaoDTO.class);
