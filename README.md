@@ -133,18 +133,19 @@ Basicamente o RedisJSON adiciona uma série de comandos que facilitam a manipula
   "ans": 42
 }
 
-          |
-          v
+   |
+   v
 
-         root
+  root
        
-          |
-          v
-     Type: object
+   |
+   v
+
+Type: object
      
-  foo           ans
-   |             |
-   v             v
+   foo           ans
+    |             |
+    v             v
 Type: string  Type: number
    "bar"        42
 
@@ -180,12 +181,175 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
 
 - Java
 - Spring Boot
-- Docker
+- JPA
+- Hibernate
+- Postgresql
 - Lombok
-- PostgreSQL
+- Swagger
+- ModelMapper
+- Gson
+- Docker
 - Redis
 - Redis Json
 
 ## Configuração
+
+### Docker
+  
+  1. Clone o repósitorio
+  2. Instale o docker (https://www.docker.com/products/docker-desktop/)
+  3. Abra o docker
+  4. Abra o terminal
+  5. Navegue até a pasta src/main/resource
+  6. Digite docker-compose up -d
+  
+### Spring Boot
+  
+  1. Abra a pasta login_back-end em uma IDE (Ex: IntelliJ IDEA) 
+  2. Navegue pela IDE até ApiPagamentoRedisJsonApplicatio
+  3. Aperte o botão play localizado ao lado de "public class ApiPagamentoRedisJsonApplication"
+
+### Swagger
+
+  1. Acesse o swagger por meio do link: http://localhost:8080/swagger-ui/index.html ou realize as requisições por meio do postman
+  
+### Redis/Redis Json
+
+  1. Abra o terminal
+  2. Digite docker exec -it redis-json bash para abrir o terminal do container redis-json
+  3. Digite redis-cli --raw (--raw: exibe os dados codificados em UTF8)
+  4. Digite keys * para exibir as keys salvas
+  5. Digite JSON.GET <nome-da-key> para exibir o valor de determinada key
+
+## EndPoints
+  
+  ### localhost:8080/transacao/v1/pagamento
+  
+  Request:
+  
+  ```
+  { 
+   "cartao": "4444********1234",
+   "descricao": {
+      "valor": "500.50",
+      "dataHora": "01/05/2021 18:00:00",
+      "estabelecimento": "PetShop Mundo cão"
+    },
+    "formaPagamento":{
+        "tipo":"AVISTA",
+        "parcelas": "1"
+    }
+  }
+  ```
+
+  Response:
+  
+  ```
+  {
+    "id": 1,
+    "cartao": "4444********1234",
+    "descricao": {
+        "valor": "500.50",
+        "dataHora": "01/05/2021 18:00:00",
+        "estabelecimento": "PetShop Mundo cão",
+        "nsu": "1234567890",
+        "codigoAutorizacao": "147258369",
+        "status": "AUTORIZADO"
+    },
+    "formaPagamento": {
+        "tipo": "AVISTA",
+        "parcelas": "1"
+    }
+  }
+  ```
+  
+  ### localhost:8080/transacao/v1/estorno/1
+  
+  Response: 
+  
+  ```
+  {
+    "id": 1,
+    "cartao": "4444********1234",
+    "descricao": {
+        "valor": "500.50",
+        "dataHora": "01/05/2021 18:00:00",
+        "estabelecimento": "PetShop Mundo cão",
+        "nsu": "1234567890",
+        "codigoAutorizacao": "147258369",
+        "status": "NEGADO"
+    },
+    "formaPagamento": {
+        "tipo": "AVISTA",
+        "parcelas": "1"
+    }
+  }
+  ```
+  
+  ### localhost:8080/transacao/v1/1
+  
+  Response:
+  
+  ```
+  {
+    "id": 1,
+    "cartao": "4444********1234",
+    "descricao": {
+        "valor": "500.50",
+        "dataHora": "01/05/2021 18:00:00",
+        "estabelecimento": "PetShop Mundo cão",
+        "nsu": "1234567890",
+        "codigoAutorizacao": "147258369",
+        "status": "NEGADO"
+    },
+    "formaPagamento": {
+        "tipo": "AVISTA",
+        "parcelas": "1"
+    }
+  }
+  ```
+  
+  ### localhost:8080/transacao/v1
+  
+  Response:
+  
+  ```
+  [
+    {
+        "id": 1,
+        "cartao": "4444********1234",
+        "descricao": {
+            "valor": "500.50",
+            "dataHora": "01/05/2021 18:00:00",
+            "estabelecimento": "PetShop Mundo cão",
+            "nsu": "1234567890",
+            "codigoAutorizacao": "147258369",
+            "status": "NEGADO"
+        },
+        "formaPagamento": {
+            "tipo": "AVISTA",
+            "parcelas": "1"
+        }
+    },
+    {
+        "id": 2,
+        "cartao": "4444********1234",
+        "descricao": {
+            "valor": "500.50",
+            "dataHora": "01/05/2021 18:00:00",
+            "estabelecimento": "PetShop Mundo cão",
+            "nsu": "1234567890",
+            "codigoAutorizacao": "147258369",
+            "status": "AUTORIZADO"
+        },
+        "formaPagamento": {
+            "tipo": "AVISTA",
+            "parcelas": "1"
+        }
+    }
+  ]
+  ```
+
+
 
 
