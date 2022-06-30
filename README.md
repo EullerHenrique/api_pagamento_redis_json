@@ -128,26 +128,26 @@ O RedisJSON apresenta uma sintaxe simples de entender até mesmo por desenvolved
 
 Basicamente o RedisJSON adiciona uma série de comandos que facilitam a manipulação de dados em formato JSON dentro do Redis, todos os comando existentes podem ser encontrados na documentação oficial do módulo (https://redis.io/commands/?group=json). A ideia de funcionamento é simples, o JSON passado para o Redis é analisado pela json-sl, uma lib que executa análises léxicas no JSON em questão e contrói uma árvore a partir dele. Demonstrado pelo esquema a baixo:
 
-{ 
-  "foo": "bar",
-  "ans": 42
-}
+          { 
+            "foo": "bar",
+            "ans": 42
+          }
 
-   |
-   v
+                |
+                v 
 
-  root
+               root
        
-   |
-   v
+                |
+                v
 
-Type: object
+           Type: object
      
-   foo           ans
-    |             |
-    v             v
-Type: string  Type: number
-   "bar"        42
+        foo           ans
+         |             |
+         v             v
+    Type: string  Type: number
+        "bar"        42
 
    
 " - Fonte:  https://medium.com/@1fabiopereira/redisjson-manipulando-json-como-tipo-nativo-no-redis-3736e1fba832
