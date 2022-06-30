@@ -59,10 +59,10 @@ public class TransacaoCacheRepository {
     public List<TransacaoDTO> getAllJsonKey() {
         //jedis.keys("transacao::*"): Retorna todas as chaves que começam com "transacao::"
         return jedis.keys("transacao::*")
-                                                .stream()
-                                                .map( key -> getJsonKey(key))
-                                                .sorted(Comparator.comparing(TransacaoDTO::getId))
-                                                .collect(Collectors.toList());
+                .stream()
+                .map( key -> getJsonKey(key))
+                .sorted(Comparator.comparing(TransacaoDTO::getId))
+                .collect(Collectors.toList());
 
     }
 
