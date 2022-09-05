@@ -196,46 +196,46 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
 
 ### Docker
   
-  1. Clone o repósitorio
-  2. Instale o docker (https://www.docker.com/products/docker-desktop/)
-  3. Abra o docker
-  4. Abra o terminal
-  5. Navegue até a api_pagamento_redis_json
-  6. Digite docker-compose up -d
+1. Clone o repósitorio
+2. Instale o docker (https://www.docker.com/products/docker-desktop/)
+3. Abra o docker
+4. Abra o terminal
+5. Navegue até a api_pagamento_redis_json
+6. Digite docker-compose up -d
     1. O jar da aplicaçào será gerado, executado e inserido em uma imagem
     2. A imagem da aplicação será executada, ou seja, se tornará um container
     3. A imagem do postgresql será executada, ou seja, se tornará um container
     4. A imagem do redis-json será executada, ou seja, se tornará um container
-  7. Obs: Caso o código seja modificado, digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
+7. Obs: Caso o código seja modificado, digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
 
 ### Spring Boot
   
-  1. Abra a pasta login_back-end em uma IDE (Ex: IntelliJ IDEA) 
-  2. Navegue pela IDE até ApiPagamentoRedisJsonApplication
-  3. Aperte o botão play localizado ao lado de "public class ApiPagamentoRedisJsonApplication"
+1. Abra a pasta login_back-end em uma IDE (Ex: IntelliJ IDEA) 
+2. Navegue pela IDE até ApiPagamentoRedisJsonApplication
+3. Aperte o botão play localizado ao lado de "public class ApiPagamentoRedisJsonApplication"
 
 ### Redis/Redis Json
 
-  1. Abra o terminal
-  2. Digite docker exec -it redis-json bash para abrir o terminal do container redis-json
-  3. Digite redis-cli --raw (--raw: exibe os dados codificados em UTF8)
-  4. Digite keys * para exibir as keys salvas
-  5. Digite JSON.GET <-nome-da-key-> para exibir o valor de determinada key
+1. Abra o terminal
+2. Digite docker exec -it redis-json bash para abrir o terminal do container redis-json
+3. Digite redis-cli --raw (--raw: exibe os dados codificados em UTF8)
+4. Digite keys * para exibir as keys salvas
+5. Digite JSON.GET <-nome-da-key-> para exibir o valor de determinada key
   
 #### Swagger: Docker 
 
-  1. Acesse o swagger por meio do link: http://localhost:8081/swagger-ui/index.html ou realize as requisições por meio do postman
+- Acesse o swagger por meio do link: http://localhost:8081/swagger-ui/index.html ou realize as requisições por meio do postman
   
 #### Swagger: Spring Boot
 
-  1. Acesse o swagger por meio do link: http://localhost:8080/swagger-ui/index.html ou realize as requisições por meio do postman
+- Acesse o swagger por meio do link: http://localhost:8080/swagger-ui/index.html ou realize as requisições por meio do postman
   
 ## EndPoints 
   
-  ### localhost:8081/transacao/v1/pagamento (Docker) ou localhost:8080/transacao/v1/pagamento (Spring Boot)
-   #### Obs: 
-        1. O insert é feito no postgresql
-        2. O id é inserido no redis -> size::transacoes = id
+### localhost:8081/transacao/v1/pagamento (Docker) ou localhost:8080/transacao/v1/pagamento (Spring Boot)
+#### Obs: 
+   1. O insert é feito no postgresql
+   2. O id é inserido no redis -> size::transacoes = id
           
   Request:
   
@@ -275,13 +275,13 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
   }
   ```
   
-  ### localhost:8081/transacao/v1/estorno/1 (Docker) ou localhost:8080/transacao/v1/estorno/1 (Spring Boot)
-  #### Obs: 
-        1. Primeira Requisição:
-          1. A consulta é feita no postgresql 
-          2. O resultado da consulta é salvo no redis
-        2. Segunda Requisição:
-          1. A consulta é feita no redis
+### localhost:8081/transacao/v1/estorno/1 (Docker) ou localhost:8080/transacao/v1/estorno/1 (Spring Boot)
+#### Obs: 
+ 1. Primeira Requisição:
+    1. A consulta é feita no postgresql 
+    2. O resultado da consulta é salvo no redis
+  2. Segunda Requisição:
+    1. A consulta é feita no redis
           
   Response: 
   
@@ -304,13 +304,13 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
   }
   ```
   
-  ### localhost:8081/transacao/v1/1 (Docker) ou localhost:8080/transacao/v1/1 (Spring  Boot)
-   #### Obs: 
-        1. Primeira Requisição:
-          1. A consulta é feita no postgresql 
-          2. O resultado da consulta é salvo no redis
-        2. Segunda Requisição:
-          1. A consulta é feita no redis
+### localhost:8081/transacao/v1/1 (Docker) ou localhost:8080/transacao/v1/1 (Spring  Boot)
+#### Obs: 
+1. Primeira Requisição:
+   1. A consulta é feita no postgresql 
+   2. O resultado da consulta é salvo no redis
+2. Segunda Requisição:
+   1. A consulta é feita no redis
           
   Response:
   
@@ -333,13 +333,13 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
   }
   ```
   
-  ### localhost:8081/transacao/v1 (Docker) ou  localhost:8080/transacao/v1 (Spring Boot)
-   #### Obs: 
-        1. Primeira Requisição:
-          1. A consulta é feita no postgresql 
-          2. O resultado da consulta é salvo no redis
-        2. Segunda Requisição:
-          1. A consulta é feita no redis
+### localhost:8081/transacao/v1 (Docker) ou  localhost:8080/transacao/v1 (Spring Boot)
+#### Obs: 
+1. Primeira Requisição:
+    1. A consulta é feita no postgresql 
+    2. O resultado da consulta é salvo no redis
+2. Segunda Requisição:
+    1. A consulta é feita no redis
           
   Response:
   
