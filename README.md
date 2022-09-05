@@ -103,7 +103,6 @@ O Redis pode calcular e, quando necessário, acelerar a taxa dos eventos. Ao usa
 ## Conceito: Redis Json
 
 "
-
 Por padrão o formato JSON é armazenado no Redis como strings escapadas, essa característica pode não atrapalhar se você deseja somente adicionar e recuperar essas informações em sua totalidade, os problemas realmente começam quando precisamos fazer uma busca em JSONs aninhados ou atualizar campos dentro de um JSON já persistido no Redis. Os problemas ocorrem pois para fazer buscas mais complexas ou atualizar informações dentro de um JSON salvo como string, precisamos recuperá-las no Redis e fazer com que essas manipulações aconteçam no lado da aplicação.
 
 Aplicação   <-  Redis
@@ -165,9 +164,6 @@ Operações atômicas tipadas para todos os tipos de valores JSON
 " - Fonte: https://redis.io/docs/stack/json/
 
 "
-
-"
-
 Limite de tamanho do documento
 Os documentos JSON são armazenados internamente em um formato otimizado para acesso e modificação rápidos. Esse formato geralmente resulta em consumir um pouco mais de memória do que a representação serializada equivalente do mesmo documento. O consumo de memória por um único documento JSON é limitado a 64 MB, que é o tamanho da estrutura de dados na memória, não a string JSON. A quantidade de memória consumida por um documento JSON pode ser inspecionada usandoJSON.DEBUG MEMORYcomando.
 
