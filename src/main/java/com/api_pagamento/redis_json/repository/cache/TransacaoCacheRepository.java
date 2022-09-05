@@ -1,9 +1,11 @@
 package com.api_pagamento.redis_json.repository.cache;
 
+import com.api_pagamento.redis_json.domain.config.RedisConfig;
 import com.api_pagamento.redis_json.domain.dto.TransacaoDTO;
 import com.api_pagamento.redis_json.domain.dto.util.Mapper;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import redis.clients.jedis.*;
 import redis.clients.jedis.json.Path;
@@ -33,7 +35,8 @@ public class TransacaoCacheRepository {
     //Pools de conexões são usados para garantir o desempenho da execução de comandos sobre um banco de dados.
 
     //HostAndPort: localhost:6379
-    private final JedisPooled jedis = new JedisPooled(Protocol.DEFAULT_HOST, Protocol.DEFAULT_PORT);
+
+    private final JedisPooled jedis;
     private final Gson gson = new Gson();
     public boolean verifyIfExistJsonKey(String key) {
         //jedis.exist(): Verifica se a chave existe no Redis.

@@ -1,9 +1,13 @@
 package com.api_pagamento.redis_json;
 
+import io.swagger.annotations.Api;
+import lombok.Value;
+import org.jboss.jandex.Main;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.annotation.AccessType;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -13,6 +17,8 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.Arrays;
 
 /*
     @SpringBootApplication = @Configuration + @ComponentScan + @EnableAutoConfiguration
@@ -43,9 +49,25 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 public class ApiPagamentoRedisJsonApplication {
 
+
     public static void main(String[] args) {
-        SpringApplication.run(ApiPagamentoRedisJsonApplication.class, args);
+        System.out.println("TESTE TESTE");
+        SpringApplication springApplication = new SpringApplication(ApiPagamentoRedisJsonApplication.class);
+        System.out.println("TESTE TESTE");
+        System.out.println(springApplication.getEnvironmentPrefix());
+        System.out.println(springApplication.getSources());
+        System.out.println(springApplication.getMainApplicationClass());
+        System.out.println(springApplication.getWebApplicationType());
+        System.out.println(springApplication.getAllSources());
+        System.out.println(springApplication.getInitializers());
+        System.out.println(springApplication.getResourceLoader());
+        System.out.println(springApplication.getApplicationStartup());
+        System.out.println(springApplication.getListeners());
+        System.out.println(springApplication.getClassLoader());
+        System.out.println(springApplication.getClass());
+        springApplication.run(args);
     }
+
 
     @Configuration
     @EnableSwagger2

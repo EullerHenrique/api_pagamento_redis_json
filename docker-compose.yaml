@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+
+  api_pagamento:
+    container_name: api_pagamento
+    image: api_pagamento:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgresql
+      - redis-json
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/db
+      - SPRING_DATASOURCE_USERNAME=euller
+      - SPRING_DATASOURCE_PASSWORD=12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_HIBERNATE_FORMAT_SQL=true
+      - SPRING_REDIS_HOST=redis-json
+      - SPRING_REDIS_PORT=6379
+    networks:
+      - api_pagamento-network
+
+  postgresql:
+    image: postgres:latest
+    container_name: postgresql
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=db
+      - POSTGRES_USER=euller
+      - POSTGRES_PASSWORD=12345
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - api_pagamento-network
+
+  redis-json:
+      image: redislabs/rejson:latest
+      container_name: redis-json
+      ports:
+        - 6379:6379
+      volumes:
+        - ./data/redis:/data
+      networks:
+        - api_pagamento-network
+networks:
+  api_pagamento-network:
+    driver: bridge
+
+
+
+
+
+

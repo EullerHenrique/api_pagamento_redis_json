@@ -1,0 +1,12 @@
+server:
+  port:
+    8081
+spring:
+  jpa:
+    database: POSTGRESQL
+  datasource:
+    driverClassName: org.postgresql.Driver
+  sql:
+    init:
+      platform: postgres
+

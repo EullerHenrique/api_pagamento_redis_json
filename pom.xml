@@ -96,6 +96,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <mainClass>com.api_pagamento.redis_json.ApiPagamentoRedisJsonApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
