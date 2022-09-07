@@ -202,8 +202,10 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
     2. A imagem da aplicação será executada, ou seja, se tornará um container
     3. A imagem do postgresql será executada, ou seja, se tornará um container
     4. A imagem do redis-json será executada, ou seja, se tornará um container
-7. Obs: Caso o código seja modificado, digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
-
+7. Caso o código seja modificado:
+    1. Digite docker-compose build --no-cache para uma nova imagem da aplicação ser gerada
+    2. Faça o passo 6
+    
 ### Spring Boot
   
 1. Abra a pasta login_back-end em uma IDE (Ex: IntelliJ IDEA) 
