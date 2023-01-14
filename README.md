@@ -279,7 +279,7 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
  1. Primeira Requisição:
     1. A consulta é feita no postgresql 
     2. O resultado da consulta é salvo no redis
-  2. Segunda Requisição:
+ 2. Segunda Requisição:
     1. A consulta é feita no redis
           
   Response: 
