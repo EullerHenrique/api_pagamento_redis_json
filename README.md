@@ -7,6 +7,8 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Configuração](#configuração)
 - [EndPoints](#endpoints)
+- [Slides](#slides)
+
 ## Conceito: Redis
 
 "
@@ -379,6 +381,9 @@ Quando um objeto ou matriz JSON tem um elemento que é outro objeto ou matriz JS
   ]
   ```
 
+### Slides
 
+- [PPT](https://github.com/EullerHenrique/api_pagamento_redis_json/blob/main/Redis.odp)
+- [PDF](https://github.com/EullerHenrique/api_pagamento_redis_json/blob/main/Redis.pdf)
 
 
